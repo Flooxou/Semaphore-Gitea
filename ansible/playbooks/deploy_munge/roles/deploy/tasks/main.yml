@@ -1,0 +1,10 @@
+---
+# tasks file for deploy
+- name: Install Munge
+  yum:
+    name:
+      - "/tmp/munge-{{version}}-1.el8.x86_64.rpm"
+      - "/tmp/munge-devel-{{version}}-1.el8.x86_64.rpm"
+      - "/tmp/munge-libs-{{version}}-1.el8.x86_64.rpm"
+    state: present
+    disable_gpg_check: yes

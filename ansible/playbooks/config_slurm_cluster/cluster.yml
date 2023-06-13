@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  roles:
+  - "etchosts"
+  - "allnode"
+
+- hosts: headnode
+  become: true
+  roles:
+  - "headnode"
+
+- hosts: computenode
+  become: true
+  roles:
+  - "computenode"

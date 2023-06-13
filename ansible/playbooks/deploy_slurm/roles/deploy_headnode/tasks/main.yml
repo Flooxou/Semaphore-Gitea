@@ -1,0 +1,21 @@
+---
+# tasks file for deploy_headnode
+- name: Install Slurm
+  yum:
+    name: "{{item}}"
+    state: present
+    disable_gpg_check: yes
+  with_items:
+    - "/tmp/slurm-{{version}}-1.el8.x86_64.rpm"
+    - "/tmp/slurm-slurmctld-{{version}}-1.el8.x86_64.rpm"
+    - "/tmp/slurm-perlapi-{{version}}-1.el8.x86_64.rpm"
+    - Lmod
+    - freeipmi
+    - hdf5
+    - hwloc-libs
+    - infiniband-diags
+    - libaec
+    - libgfortran
+    - libibumad
+    - libjwt
+    - libquadmath

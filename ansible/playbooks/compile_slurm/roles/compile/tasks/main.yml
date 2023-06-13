@@ -1,0 +1,38 @@
+---
+# tasks file for compile
+- name: Install packages for rpmbuild
+  yum:
+    name:
+      - munge-devel
+      - rpm-build
+      - rpmdevtools
+      - pam-devel
+      - perl
+      - python3
+      - readline-devel
+      - gcc
+      - glibc
+      - libc.so.6
+      - mariadb
+      - mariadb-devel
+    state: present
+
+- name: Copy slurm file
+  copy:
+    src: "{{slurm}}"
+    dest: /tmp/{{slurm}}
+
+- name: Check for previous rpmbuild
+  stat:
+    path: /root/rpmbuild
+  register: dir_stat
+
+- name: Delete previous rpmbuild
+  shell: rm -fr /root/rpmbuild
+  when: dir_stat.stat.exists
+
+- name: Compile rpm for slurm
+  shell: rpmbuild -ta /tmp/{{slurm}}
+
+- name: Delete all tmp
+  shell: rm -fr /tmp/*

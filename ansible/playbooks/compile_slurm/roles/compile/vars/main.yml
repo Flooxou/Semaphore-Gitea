@@ -1,0 +1,3 @@
+---
+# vars file for compile
+slurm: slurm-23.02.2.tar.bz2

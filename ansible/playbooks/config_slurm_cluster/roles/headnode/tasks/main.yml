@@ -1,0 +1,8 @@
+---
+# tasks file for headnode
+
+- name: Start and enable Slurm service on headnode
+  systemd:
+    name: slurmctld
+    state: started
+    enabled: yes

@@ -1,0 +1,5 @@
+---
+# tasks file for erase
+- name: Delete all tmp
+  shell: rm -fr /tmp/*
+    

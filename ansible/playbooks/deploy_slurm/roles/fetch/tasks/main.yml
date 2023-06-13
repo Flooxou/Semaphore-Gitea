@@ -1,0 +1,34 @@
+---
+# tasks file for deploy
+- name: Pull RPM of Slurm
+  fetch:
+    src: "{{item}}"
+    dest: "/tmp/"
+    flat: yes
+    fail_on_missing: yes
+  delegate_to: 192.168.1.254
+  with_items:
+    - /root/rpmbuild/RPMS/x86_64/slurm-{{version}}-1.el8.x86_64.rpm
+    - /root/rpmbuild/RPMS/x86_64/slurm-slurmd-{{version}}-1.el8.x86_64.rpm
+    - /root/rpmbuild/RPMS/x86_64/slurm-slurmctld-{{version}}-1.el8.x86_64.rpm
+    - /root/rpmbuild/RPMS/x86_64/slurm-perlapi-{{version}}-1.el8.x86_64.rpm
+
+- name: Copy RPM on nodes
+  copy:
+    src: "{{item}}"
+    dest: "/tmp/"
+  with_items:
+    - /tmp/slurm-{{version}}-1.el8.x86_64.rpm
+    - /tmp/slurm-slurmd-{{version}}-1.el8.x86_64.rpm
+    - /tmp/slurm-slurmctld-{{version}}-1.el8.x86_64.rpm
+    - /tmp/slurm-perlapi-{{version}}-1.el8.x86_64.rpm
+
+- name: Uninstall previous version
+  yum:
+    name: "{{item}}"
+    state: absent
+  with_items:
+    - slurm
+    - slurm-perlapi
+
+    

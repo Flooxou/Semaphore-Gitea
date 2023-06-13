@@ -1,0 +1,5 @@
+---
+- hosts: builder
+  become: true
+  roles:
+  - "compile"

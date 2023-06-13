@@ -1,0 +1,9 @@
+---
+# tasks file for computenode
+
+- name: Start and enable Slurm service on compute node
+  systemd:
+    name: slurmd
+    state: started
+    enabled: yes
+

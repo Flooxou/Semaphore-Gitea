@@ -1,0 +1,40 @@
+---
+# tasks file for compile
+- name: Install packages for rpmbuild
+  yum:
+    name:
+      - munge-devel
+      - rpm-build
+      - rpmdevtools
+      - pam-devel
+      - perl
+      - python3
+      - readline-devel
+      - gcc
+      - glibc
+      - libc.so.6
+      - mariadb-server
+      - mariadb-devel
+      - bzip2
+      - bzip2-devel
+    state: present
+
+- name: Copy munge file
+  copy:
+    src: "{{munge}}"
+    dest: /tmp/{{munge}}
+
+- name: Check for previous rpmbuild
+  stat:
+    path: /root/rpmbuild
+  register: dir_stat
+
+- name: Delete previous rpmbuild
+  shell: rm -fr /root/rpmbuild
+  when: dir_stat.stat.exists
+
+- name: Compile rpm for munge
+  shell: rpmbuild -ta /tmp/{{munge}}
+
+- name: Delete all tmp
+  shell: rm -fr /tmp/*

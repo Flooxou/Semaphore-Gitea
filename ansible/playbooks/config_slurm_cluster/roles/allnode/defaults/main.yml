@@ -1,0 +1,15 @@
+---
+# defaults file for munge
+slurmctld_host: NoeudAdmin
+
+slurmdbd_enabled: false
+slurmdbd_host: headnode
+
+slurm_compute_group: computenode
+slurm_cluster_name: defaultcluster
+slurm_partition_name: debug
+slurm_cpus_per_node: 1
+
+slurm_state_dir: /var/lib/slurm
+
+slurm_log_to_syslog: false

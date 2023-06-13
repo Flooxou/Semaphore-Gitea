@@ -1,0 +1,31 @@
+---
+# tasks file for deploy
+- name: Pull RPM of Munge
+  fetch:
+    src: "{{item}}"
+    dest: "/tmp/"
+    flat: yes
+    fail_on_missing: yes
+  delegate_to: 192.168.1.254
+  with_items:
+    - /root/rpmbuild/RPMS/x86_64/munge-{{version}}-1.el8.x86_64.rpm
+    - /root/rpmbuild/RPMS/x86_64/munge-devel-{{version}}-1.el8.x86_64.rpm
+    - /root/rpmbuild/RPMS/x86_64/munge-libs-{{version}}-1.el8.x86_64.rpm
+
+- name: Copy RPM on nodes
+  copy:
+    src: "{{item}}"
+    dest: "/tmp/"
+  with_items:
+    - /tmp/munge-{{version}}-1.el8.x86_64.rpm
+    - /tmp/munge-devel-{{version}}-1.el8.x86_64.rpm
+    - /tmp/munge-libs-{{version}}-1.el8.x86_64.rpm
+
+- name: Uninstall previous version
+  yum:
+    name: "{{item}}"
+    state: absent
+  with_items:
+    - munge
+
+    

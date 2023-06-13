@@ -1,0 +1,7 @@
+---
+# tasks file for etchosts
+- name: Regather data
+  action: setup
+
+- name: auto-generate /etc/hosts
+  action: template src=hosts.j2 dest=/etc/hosts

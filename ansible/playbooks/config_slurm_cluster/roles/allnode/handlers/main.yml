@@ -1,0 +1,6 @@
+---
+# handlers file for munge
+- name: munge is restarted
+  service:
+    name: munge
+    state: restarted

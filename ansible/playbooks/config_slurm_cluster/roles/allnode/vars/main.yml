@@ -1,0 +1,4 @@
+---
+# vars file for munge
+munge: munge-0.5.15.tar.xz
+slurm: slurm-23.02.2.tar.bz2

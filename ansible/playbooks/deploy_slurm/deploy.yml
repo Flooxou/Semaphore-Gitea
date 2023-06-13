@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: true
+  roles:
+  - "fetch"
+
+- hosts: headnode
+  become: true
+  roles:
+  - "deploy_headnode"
+
+- hosts: computenode
+  become: true
+  roles:
+  - "deploy_computenode"
+
+- hosts: all
+  become: true
+  roles:
+  - "erase"

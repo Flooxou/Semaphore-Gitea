@@ -1,0 +1,10 @@
+---
+# tasks file for ipconfig
+- name: Execute ipconfig command
+  win_command: ipconfig
+  register: ipconfig_output
+
+- name: Save in a file
+  copy:
+    content: "{{ ipconfig_output.stdout }}"
+    dest: E:\Utilisateurs\adm-bourgardez-f\ipconfig.txt
